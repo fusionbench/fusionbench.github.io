@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="FusionBench" />
+  <meta name="author" content="KGBNU" />
+  <title>FuisonBench</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./style/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom fonts for this template -->
+  <link href="./style/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="./style/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+
+  <!-- Custom styles for this template -->
+  <link href="./style/clean-blog.min.css" rel="stylesheet" />
+  <link href="./style/bird.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header class="masthead" id="header-color">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-12 mx-auto">
+          <div class="row site-heading flex-box">
+            <div class="col-lg-9">
+              <div class="align-middle">
+                <h1 id="bird-title">FusionBench</h1>
+                <span class="subheading" id="caption">A comprehensive Benchmark for QA under Ambiguity and Heterogeneity.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container" id="main">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="list-group">
+          <div class="list-group-item" id="introduction">
+            <h4>About FusionBench</h4>
+
+            <code>FusionBench</code> is a comprehensive and complex benchmark designed to evaulate large language models
+            (LLMs) Question Answering (QA) capabilities under both ambiguity and heterogeneity. It has <b>7,179</b> QA
+            pairs, with approximately <b>15.8K</b> text snippets, <b>137.7K</b> table entries, and <b>198.1K</b> triples
+            overall.
+
+            <div id="button-group">
+              <div class="button-row">
+                <a href="" target="_blank">
+                  <button type="button" class="btn btn-a">Paper</button>
+                </a>
+              </div>
+              <div class="button-row">
+                <a href="" target="_blank">
+                  <button type="button" class="btn btn-a">Code</button>
+                </a>
+              </div>
+              <div class="button-row">
+                <a href="https://huggingface.co/datasets/cccwe/FusionBench" target="_blank">
+                  <button type="button" class="btn btn-d"> Dataset </button>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="list-group-item" id="news">
+            <h4>News</h4>
+
+            <div class="scroll-container">
+              <div class="card card-outline-secondary mb-4" style="text-align: left">
+                <div class="card-body" style="background-color: #f1f6f9">
+
+                  <ul style="padding-left: 0">
+                    <li style="list-style-type: none">
+                      <span style="background-color: #634687; color: white; padding: 2px 4px; border-radius: 5px;">
+                        <strong style="color: #ffe7ce">Dec. 30, 2025: </strong> </span>
+                      We officially released the <a href="https://huggingface.co/datasets/cccwe/FusionBench"
+                        target="_blank">FusionBench</a> dataset on huggingface! <code>FusionBench</code> focues on the
+                      ambiguous questions with multi-source information.
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <h4>Submission</h4>
+            We warmly welcome submissions to our leaderboard. Please refer to the Submission Guidelines below for details, and submit your results as insructed to <code>zcwang@bnu.edu.cn</code>.
+            <div class="button-row">
+              <a href="README.md" target="_blank">
+                <button type="button" class="btn btn-a"> Submission Guidelines </button>
+              </a>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <h4>Citation</h4>
+
+            <pre id="citation">
+              @article{
+              }
+            </pre>
+          </div>
+          <div class="list-group-item">
+            ⚙ This website is modified from <a href="https://bird-bench.github.io/">Bird-Bench</a>.
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Leaderboard -->
+      <div class="col-lg-8">
+          <!-- ===================== Leaderboard - Evidence-aware QA Multi-answer ======================= -->
+          <div class="card card-outline-secondary">
+            <div class="card-header">Leaderboard - Evidence-aware QA with Multiple Answers</div>
+            <div class="table-wrapper">
+              <div class="btn-group mb-3 w-100" role="group">
+                <button type="button" class="btn btn-f active" id="ex-ungrouped-btn">Ungrouped
+                  Evidence</button>
+                <button type="button" class="btn btn-f" id="ex-grouped-btn"
+                >Grouped Evidence</button>
+              </div>
+
+              <!-- Ungrouped Evidence -->
+              <table class="table leaderboard" id="ex-ungrouped-table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" rowspan="1"></th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">Model</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^A</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">ER</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^E</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^EA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro w/ R</td>
+                    <td class="align-middle text-center"">0.810</td>
+                    <td class="align-middle text-center"">0.815</td>
+                    <td class="align-middle text-center"">0.812</td>
+                    <td class="align-middle text-center"">0.882</td>
+                    <td class="align-middle text-center">0.851</td>
+                    <td class="align-middle text-center">0.866</td>
+                    <td class="align-middle text-center"">0.782</td>
+                    <td class="align-middle text-center"">0.783</td>
+                    <td class="align-middle text-center"">0.783</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro</td>
+                    <td class="align-middle text-center"">0.750</td>
+                    <td class="align-middle text-center"">0.823</td>
+                    <td class="align-middle text-center"">0.785</td>
+                    <td class="align-middle text-center">0.785</td>
+                    <td class="align-middle text-center">0.897</td>
+                    <td class="align-middle text-center">0.837</td>
+                    <td class="align-middle text-center">0.704</td>
+                    <td class="align-middle text-center">0.747</td>
+                    <td class="align-middle text-center">0.725</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jan 22, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-R1 w/ R</td>
+                    <td class="align-middle text-center">0.741</td>
+                    <td class="align-middle text-center">0.812</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.830</td>
+                    <td class="align-middle text-center">0.929</td>
+                    <td class="align-middle text-center">0.877</td>
+                    <td class="align-middle text-center">0.706</td>
+                    <td class="align-middle text-center"">0.768</td>
+                    <td class="align-middle text-center"">0.736</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-70B-Instruct</td>
+                    <td class="align-middle text-center">0.730</td>
+                    <td class="align-middle text-center">0.793</td>
+                    <td class="align-middle text-center">0.760</td>
+                    <td class="align-middle text-center">0.834</td>
+                    <td class="align-middle text-center">0.917</td>
+                    <td class="align-middle text-center">0.874</td>
+                    <td class="align-middle text-center">0.689</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.719</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Flash</td>
+                    <td class="align-middle text-center">0.750</td>
+                    <td class="align-middle text-center">0.738</td>
+                    <td class="align-middle text-center">0.744</td>
+                    <td class="align-middle text-center">0.834</td>
+                    <td class="align-middle text-center">0.895</td>
+                    <td class="align-middle text-center">0.863</td>
+                    <td class="align-middle text-center"">0.728</td>
+                    <td class="align-middle text-center">0.716</td>
+                    <td class="align-middle text-center">0.722</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus w/ R</td>
+                    <td class="align-middle text-center">0.719</td>
+                    <td class="align-middle text-center">0.780</td>
+                    <td class="align-middle text-center">0.748</td>
+                    <td class="align-middle text-center"">0.872</td>
+                    <td class="align-middle text-center">0.947</td>
+                    <td class="align-middle text-center"">0.908</td>
+                    <td class="align-middle text-center">0.691</td>
+                    <td class="align-middle text-center">0.745</td>
+                    <td class="align-middle text-center">0.717</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Nov 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-V3</td>
+                    <td class="align-middle text-center">0.720</td>
+                    <td class="align-middle text-center">0.771</td>
+                    <td class="align-middle text-center">0.745</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.939</td>
+                    <td class="align-middle text-center"">0.895</td>
+                    <td class="align-middle text-center">0.688</td>
+                    <td class="align-middle text-center">0.737</td>
+                    <td class="align-middle text-center">0.712</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus</td>
+                    <td class="align-middle text-center">0.702</td>
+                    <td class="align-middle text-center">0.797</td>
+                    <td class="align-middle text-center">0.746</td>
+                    <td class="align-middle text-center">0.816</td>
+                    <td class="align-middle text-center">0.925</td>
+                    <td class="align-middle text-center">0.867</td>
+                    <td class="align-middle text-center">0.674</td>
+                    <td class="align-middle text-center">0.754</td>
+                    <td class="align-middle text-center">0.712</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">July 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o-Mini</td>
+                    <td class="align-middle text-center">0.686</td>
+                    <td class="align-middle text-center">0.796</td>
+                    <td class="align-middle text-center">0.737</td>
+                    <td class="align-middle text-center">0.783</td>
+                    <td class="align-middle text-center">0.933</td>
+                    <td class="align-middle text-center">0.851</td>
+                    <td class="align-middle text-center">0.650</td>
+                    <td class="align-middle text-center">0.765</td>
+                    <td class="align-middle text-center">0.703</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 13, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o</td>
+                    <td class="align-middle text-center">0.669</td>
+                    <td class="align-middle text-center">0.814</td>
+                    <td class="align-middle text-center">0.734</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.926</td>
+                    <td class="align-middle text-center">0.835</td>
+                    <td class="align-middle text-center">0.636</td>
+                    <td class="align-middle text-center"">0.766</td>
+                    <td class="align-middle text-center">0.695</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Air</td>
+                    <td class="align-middle text-center">0.660</td>
+                    <td class="align-middle text-center">0.770</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.927</td>
+                    <td class="align-middle text-center">0.844</td>
+                    <td class="align-middle text-center">0.625</td>
+                    <td class="align-middle text-center">0.726</td>
+                    <td class="align-middle text-center">0.672</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-8B</td>
+                    <td class="align-middle text-center">0.612</td>
+                    <td class="align-middle text-center">0.782</td>
+                    <td class="align-middle text-center">0.687</td>
+                    <td class="align-middle text-center">0.767</td>
+                    <td class="align-middle text-center"">0.966</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.598</td>
+                    <td class="align-middle text-center">0.766</td>
+                    <td class="align-middle text-center">0.672</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-32B</td>
+                    <td class="align-middle text-center">0.626</td>
+                    <td class="align-middle text-center">0.771</td>
+                    <td class="align-middle text-center">0.691</td>
+                    <td class="align-middle text-center">0.789</td>
+                    <td class="align-middle text-center"">0.975</td>
+                    <td class="align-middle text-center">0.872</td>
+                    <td class="align-middle text-center">0.612</td>
+                    <td class="align-middle text-center">0.753</td>
+                    <td class="align-middle text-center">0.675</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Plus</td>
+                    <td class="align-middle text-center">0.609</td>
+                    <td class="align-middle text-center">0.799</td>
+                    <td class="align-middle text-center">0.691</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center">0.952</td>
+                    <td class="align-middle text-center">0.814</td>
+                    <td class="align-middle text-center">0.579</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.657</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-8B-Instruct</td>
+                    <td class="align-middle text-center">0.608</td>
+                    <td class="align-middle text-center">0.705</td>
+                    <td class="align-middle text-center">0.653</td>
+                    <td class="align-middle text-center">0.727</td>
+                    <td class="align-middle text-center">0.830</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.546</td>
+                    <td class="align-middle text-center">0.634</td>
+                    <td class="align-middle text-center">0.587</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-9B</td>
+                    <td class="align-middle text-center">0.542</td>
+                    <td class="align-middle text-center">0.746</td>
+                    <td class="align-middle text-center">0.628</td>
+                    <td class="align-middle text-center">0.498</td>
+                    <td class="align-middle text-center">0.857</td>
+                    <td class="align-middle text-center">0.630</td>
+                    <td class="align-middle text-center">0.472</td>
+                    <td class="align-middle text-center">0.649</td>
+                    <td class="align-middle text-center">0.547</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Grouped Evidence -->
+              <table class="table leaderboard" id="ex-grouped-table" style="display: none;">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" rowspan="1"></th>
+                    <th scope="col" rowspan="2" class="align-middle text-center">Model</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^A</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">ER</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^E</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^EA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro w/ R</td>
+                    <td class="align-middle text-center"">0.828</td>
+                    <td class="align-middle text-center">0.851</td>
+                    <td class="align-middle text-center"">0.839</td>
+                    <td class="align-middle text-center"">0.900</td>
+                    <td class="align-middle text-center"">0.989</td>
+                    <td class="align-middle text-center"">0.942</td>
+                    <td class="align-middle text-center"">0.820</td>
+                    <td class="align-middle text-center"">0.844</td>
+                    <td class="align-middle text-center"">0.832</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jan 22, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-R1 w/ R</td>
+                    <td class="align-middle text-center">0.787</td>
+                    <td class="align-middle text-center">0.853</td>
+                    <td class="align-middle text-center">0.819</td>
+                    <td class="align-middle text-center">0.865</td>
+                    <td class="align-middle text-center">0.968</td>
+                    <td class="align-middle text-center">0.914</td>
+                    <td class="align-middle text-center"">0.770</td>
+                    <td class="align-middle text-center"">0.832</td>
+                    <td class="align-middle text-center"">0.800</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-70B-Instruct</td>
+                    <td class="align-middle text-center">0.801</td>
+                    <td class="align-middle text-center">0.853</td>
+                    <td class="align-middle text-center">0.826</td>
+                    <td class="align-middle text-center">0.850</td>
+                    <td class="align-middle text-center">0.935</td>
+                    <td class="align-middle text-center">0.890</td>
+                    <td class="align-middle text-center">0.763</td>
+                    <td class="align-middle text-center">0.821</td>
+                    <td class="align-middle text-center">0.791</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">July 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o-Mini</td>
+                    <td class="align-middle text-center"">0.788</td>
+                    <td class="align-middle text-center"">0.875</td>
+                    <td class="align-middle text-center"">0.829</td>
+                    <td class="align-middle text-center">0.823</td>
+                    <td class="align-middle text-center">0.942</td>
+                    <td class="align-middle text-center">0.878</td>
+                    <td class="align-middle text-center">0.749</td>
+                    <td class="align-middle text-center"">0.842</td>
+                    <td class="align-middle text-center">0.793</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro</td>
+                    <td class="align-middle text-center">0.781</td>
+                    <td class="align-middle text-center"">0.869</td>
+                    <td class="align-middle text-center">0.823</td>
+                    <td class="align-middle text-center">0.807</td>
+                    <td class="align-middle text-center">0.951</td>
+                    <td class="align-middle text-center">0.873</td>
+                    <td class="align-middle text-center">0.759</td>
+                    <td class="align-middle text-center">0.833</td>
+                    <td class="align-middle text-center">0.794</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Nov 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-V3</td>
+                    <td class="align-middle text-center">0.783</td>
+                    <td class="align-middle text-center">0.839</td>
+                    <td class="align-middle text-center">0.810</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.949</td>
+                    <td class="align-middle text-center">0.900</td>
+                    <td class="align-middle text-center">0.749</td>
+                    <td class="align-middle text-center">0.806</td>
+                    <td class="align-middle text-center">0.777</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus w/ R</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.829</td>
+                    <td class="align-middle text-center">0.789</td>
+                    <td class="align-middle text-center">0.895</td>
+                    <td class="align-middle text-center"">0.992</td>
+                    <td class="align-middle text-center"">0.941</td>
+                    <td class="align-middle text-center">0.746</td>
+                    <td class="align-middle text-center">0.821</td>
+                    <td class="align-middle text-center">0.782</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-32B</td>
+                    <td class="align-middle text-center">0.756</td>
+                    <td class="align-middle text-center">0.830</td>
+                    <td class="align-middle text-center">0.791</td>
+                    <td class="align-middle text-center">0.854</td>
+                    <td class="align-middle text-center">0.947</td>
+                    <td class="align-middle text-center">0.898</td>
+                    <td class="align-middle text-center">0.726</td>
+                    <td class="align-middle text-center">0.792</td>
+                    <td class="align-middle text-center">0.757</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.807</td>
+                    <td class="align-middle text-center">0.779</td>
+                    <td class="align-middle text-center"">0.899</td>
+                    <td class="align-middle text-center">0.972</td>
+                    <td class="align-middle text-center">0.934</td>
+                    <td class="align-middle text-center">0.735</td>
+                    <td class="align-middle text-center">0.789</td>
+                    <td class="align-middle text-center">0.761</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 13, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center"">0.874</td>
+                    <td class="align-middle text-center">0.784</td>
+                    <td class="align-middle text-center">0.760</td>
+                    <td class="align-middle text-center">0.945</td>
+                    <td class="align-middle text-center">0.842</td>
+                    <td class="align-middle text-center">0.683</td>
+                    <td class="align-middle text-center"">0.835</td>
+                    <td class="align-middle text-center">0.751</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Air</td>
+                    <td class="align-middle text-center">0.740</td>
+                    <td class="align-middle text-center">0.825</td>
+                    <td class="align-middle text-center">0.780</td>
+                    <td class="align-middle text-center">0.793</td>
+                    <td class="align-middle text-center">0.908</td>
+                    <td class="align-middle text-center">0.847</td>
+                    <td class="align-middle text-center">0.684</td>
+                    <td class="align-middle text-center">0.762</td>
+                    <td class="align-middle text-center">0.721</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Flash</td>
+                    <td class="align-middle text-center">0.756</td>
+                    <td class="align-middle text-center">0.767</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.838</td>
+                    <td class="align-middle text-center">0.918</td>
+                    <td class="align-middle text-center">0.876</td>
+                    <td class="align-middle text-center">0.751</td>
+                    <td class="align-middle text-center">0.762</td>
+                    <td class="align-middle text-center">0.756</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-8B</td>
+                    <td class="align-middle text-center">0.663</td>
+                    <td class="align-middle text-center">0.837</td>
+                    <td class="align-middle text-center">0.740</td>
+                    <td class="align-middle text-center">0.790</td>
+                    <td class="align-middle text-center"">0.980</td>
+                    <td class="align-middle text-center">0.875</td>
+                    <td class="align-middle text-center">0.657</td>
+                    <td class="align-middle text-center">0.828</td>
+                    <td class="align-middle text-center">0.732</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Plus</td>
+                    <td class="align-middle text-center">0.663</td>
+                    <td class="align-middle text-center">0.835</td>
+                    <td class="align-middle text-center">0.739</td>
+                    <td class="align-middle text-center">0.740</td>
+                    <td class="align-middle text-center">0.955</td>
+                    <td class="align-middle text-center">0.834</td>
+                    <td class="align-middle text-center">0.631</td>
+                    <td class="align-middle text-center">0.797</td>
+                    <td class="align-middle text-center">0.705</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-8B-Instruct</td>
+                    <td class="align-middle text-center">0.695</td>
+                    <td class="align-middle text-center">0.730</td>
+                    <td class="align-middle text-center">0.712</td>
+                    <td class="align-middle text-center">0.753</td>
+                    <td class="align-middle text-center">0.794</td>
+                    <td class="align-middle text-center">0.773</td>
+                    <td class="align-middle text-center">0.611</td>
+                    <td class="align-middle text-center">0.643</td>
+                    <td class="align-middle text-center">0.627</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-9B</td>
+                    <td class="align-middle text-center">0.528</td>
+                    <td class="align-middle text-center">0.795</td>
+                    <td class="align-middle text-center">0.635</td>
+                    <td class="align-middle text-center">0.559</td>
+                    <td class="align-middle text-center">0.859</td>
+                    <td class="align-middle text-center">0.677</td>
+                    <td class="align-middle text-center">0.462</td>
+                    <td class="align-middle text-center">0.690</td>
+                    <td class="align-middle text-center">0.553</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ===================== Leaderboard - Evidence-aware QA Unique-answer ======================= -->
+          <div class="card card-outline-secondary">
+            <div class="card-header" id="board-evidence-unique">Leaderboard - Evidence-aware QA with Unique Answer</div>
+            <div class="table-wrapper">
+              <div class="btn-group mb-3 w-100" role="group">
+                <button type="button" class="btn btn-f active" id="unique-ungrouped-btn"
+                  >Ungrouped Evidence</button>
+                <button type="button" class="btn btn-f" id="unique-grouped-btn"
+                  >Grouped Evidence</button>
+              </div>
+
+              <!-- Ungrouped Evidence -->
+              <table class="table leaderboard" id="unique-ungrouped-table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" rowspan="1"></th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">Model</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^A</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">ER</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^E</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^EA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro w/ R</td>
+                    <td class="align-middle text-center"">0.810</td>
+                    <td class="align-middle text-center"">0.815</td>
+                    <td class="align-middle text-center"">0.812</td>
+                    <td class="align-middle text-center"">0.882</td>
+                    <td class="align-middle text-center">0.851</td>
+                    <td class="align-middle text-center">0.866</td>
+                    <td class="align-middle text-center"">0.782</td>
+                    <td class="align-middle text-center"">0.783</td>
+                    <td class="align-middle text-center"">0.783</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro</td>
+                    <td class="align-middle text-center"">0.750</td>
+                    <td class="align-middle text-center"">0.823</td>
+                    <td class="align-middle text-center"">0.785</td>
+                    <td class="align-middle text-center">0.785</td>
+                    <td class="align-middle text-center">0.897</td>
+                    <td class="align-middle text-center">0.837</td>
+                    <td class="align-middle text-center">0.704</td>
+                    <td class="align-middle text-center">0.747</td>
+                    <td class="align-middle text-center">0.725</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jan 22, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-R1 w/ R</td>
+                    <td class="align-middle text-center">0.741</td>
+                    <td class="align-middle text-center">0.812</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.830</td>
+                    <td class="align-middle text-center">0.929</td>
+                    <td class="align-middle text-center">0.877</td>
+                    <td class="align-middle text-center">0.706</td>
+                    <td class="align-middle text-center"">0.768</td>
+                    <td class="align-middle text-center"">0.736</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-70B-Instruct</td>
+                    <td class="align-middle text-center">0.730</td>
+                    <td class="align-middle text-center">0.793</td>
+                    <td class="align-middle text-center">0.760</td>
+                    <td class="align-middle text-center">0.834</td>
+                    <td class="align-middle text-center">0.917</td>
+                    <td class="align-middle text-center">0.874</td>
+                    <td class="align-middle text-center">0.689</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.719</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Flash</td>
+                    <td class="align-middle text-center">0.750</td>
+                    <td class="align-middle text-center">0.738</td>
+                    <td class="align-middle text-center">0.744</td>
+                    <td class="align-middle text-center">0.834</td>
+                    <td class="align-middle text-center">0.895</td>
+                    <td class="align-middle text-center">0.863</td>
+                    <td class="align-middle text-center"">0.728</td>
+                    <td class="align-middle text-center">0.716</td>
+                    <td class="align-middle text-center">0.722</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus w/ R</td>
+                    <td class="align-middle text-center">0.719</td>
+                    <td class="align-middle text-center">0.780</td>
+                    <td class="align-middle text-center">0.748</td>
+                    <td class="align-middle text-center"">0.872</td>
+                    <td class="align-middle text-center">0.947</td>
+                    <td class="align-middle text-center"">0.908</td>
+                    <td class="align-middle text-center">0.691</td>
+                    <td class="align-middle text-center">0.745</td>
+                    <td class="align-middle text-center">0.717</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Nov 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-V3</td>
+                    <td class="align-middle text-center">0.720</td>
+                    <td class="align-middle text-center">0.771</td>
+                    <td class="align-middle text-center">0.745</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.939</td>
+                    <td class="align-middle text-center"">0.895</td>
+                    <td class="align-middle text-center">0.688</td>
+                    <td class="align-middle text-center">0.737</td>
+                    <td class="align-middle text-center">0.712</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus</td>
+                    <td class="align-middle text-center">0.702</td>
+                    <td class="align-middle text-center">0.797</td>
+                    <td class="align-middle text-center">0.746</td>
+                    <td class="align-middle text-center">0.816</td>
+                    <td class="align-middle text-center">0.925</td>
+                    <td class="align-middle text-center">0.867</td>
+                    <td class="align-middle text-center">0.674</td>
+                    <td class="align-middle text-center">0.754</td>
+                    <td class="align-middle text-center">0.712</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">July 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o-Mini</td>
+                    <td class="align-middle text-center">0.686</td>
+                    <td class="align-middle text-center">0.796</td>
+                    <td class="align-middle text-center">0.737</td>
+                    <td class="align-middle text-center">0.783</td>
+                    <td class="align-middle text-center">0.933</td>
+                    <td class="align-middle text-center">0.851</td>
+                    <td class="align-middle text-center">0.650</td>
+                    <td class="align-middle text-center">0.765</td>
+                    <td class="align-middle text-center">0.703</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 13, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o</td>
+                    <td class="align-middle text-center">0.669</td>
+                    <td class="align-middle text-center">0.814</td>
+                    <td class="align-middle text-center">0.734</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.926</td>
+                    <td class="align-middle text-center">0.835</td>
+                    <td class="align-middle text-center">0.636</td>
+                    <td class="align-middle text-center"">0.766</td>
+                    <td class="align-middle text-center">0.695</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Air</td>
+                    <td class="align-middle text-center">0.660</td>
+                    <td class="align-middle text-center">0.770</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.927</td>
+                    <td class="align-middle text-center">0.844</td>
+                    <td class="align-middle text-center">0.625</td>
+                    <td class="align-middle text-center">0.726</td>
+                    <td class="align-middle text-center">0.672</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-8B</td>
+                    <td class="align-middle text-center">0.612</td>
+                    <td class="align-middle text-center">0.782</td>
+                    <td class="align-middle text-center">0.687</td>
+                    <td class="align-middle text-center">0.767</td>
+                    <td class="align-middle text-center"">0.966</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.598</td>
+                    <td class="align-middle text-center">0.766</td>
+                    <td class="align-middle text-center">0.672</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-32B</td>
+                    <td class="align-middle text-center">0.626</td>
+                    <td class="align-middle text-center">0.771</td>
+                    <td class="align-middle text-center">0.691</td>
+                    <td class="align-middle text-center">0.789</td>
+                    <td class="align-middle text-center"">0.975</td>
+                    <td class="align-middle text-center">0.872</td>
+                    <td class="align-middle text-center">0.612</td>
+                    <td class="align-middle text-center">0.753</td>
+                    <td class="align-middle text-center">0.675</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Plus</td>
+                    <td class="align-middle text-center">0.609</td>
+                    <td class="align-middle text-center">0.799</td>
+                    <td class="align-middle text-center">0.691</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center">0.952</td>
+                    <td class="align-middle text-center">0.814</td>
+                    <td class="align-middle text-center">0.579</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.657</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-8B-Instruct</td>
+                    <td class="align-middle text-center">0.608</td>
+                    <td class="align-middle text-center">0.705</td>
+                    <td class="align-middle text-center">0.653</td>
+                    <td class="align-middle text-center">0.727</td>
+                    <td class="align-middle text-center">0.830</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.546</td>
+                    <td class="align-middle text-center">0.634</td>
+                    <td class="align-middle text-center">0.587</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-9B</td>
+                    <td class="align-middle text-center">0.542</td>
+                    <td class="align-middle text-center">0.746</td>
+                    <td class="align-middle text-center">0.628</td>
+                    <td class="align-middle text-center">0.498</td>
+                    <td class="align-middle text-center">0.857</td>
+                    <td class="align-middle text-center">0.630</td>
+                    <td class="align-middle text-center">0.472</td>
+                    <td class="align-middle text-center">0.649</td>
+                    <td class="align-middle text-center">0.547</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Grouped Evidence -->
+              <table class="table leaderboard" id="unique-grouped-table" style="display: none;">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" rowspan="1"></th>
+                    <th scope="col" rowspan="2" class="align-middle text-center">Model</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^A</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">ER</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^E</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^EA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro w/ R</td>
+                    <td class="align-middle text-center">0.828</td>
+                    <td class="align-middle text-center">0.851</td>
+                    <td class="align-middle text-center">0.839</td>
+                    <td class="align-middle text-center">0.900</td>
+                    <td class="align-middle text-center">0.989</td>
+                    <td class="align-middle text-center">0.942</td>
+                    <td class="align-middle text-center">0.820</td>
+                    <td class="align-middle text-center">0.844</td>
+                    <td class="align-middle text-center">0.832</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jan 22, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-R1 w/ R</td>
+                    <td class="align-middle text-center">0.787</td>
+                    <td class="align-middle text-center">0.853</td>
+                    <td class="align-middle text-center">0.819</td>
+                    <td class="align-middle text-center">0.865</td>
+                    <td class="align-middle text-center">0.968</td>
+                    <td class="align-middle text-center">0.914</td>
+                    <td class="align-middle text-center"">0.770</td>
+                    <td class="align-middle text-center"">0.832</td>
+                    <td class="align-middle text-center"">0.800</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-70B-Instruct</td>
+                    <td class="align-middle text-center">0.801</td>
+                    <td class="align-middle text-center">0.853</td>
+                    <td class="align-middle text-center">0.826</td>
+                    <td class="align-middle text-center">0.850</td>
+                    <td class="align-middle text-center">0.935</td>
+                    <td class="align-middle text-center">0.890</td>
+                    <td class="align-middle text-center">0.763</td>
+                    <td class="align-middle text-center">0.821</td>
+                    <td class="align-middle text-center">0.791</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">July 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o-Mini</td>
+                    <td class="align-middle text-center"">0.788</td>
+                    <td class="align-middle text-center"">0.875</td>
+                    <td class="align-middle text-center"">0.829</td>
+                    <td class="align-middle text-center">0.823</td>
+                    <td class="align-middle text-center">0.942</td>
+                    <td class="align-middle text-center">0.878</td>
+                    <td class="align-middle text-center">0.749</td>
+                    <td class="align-middle text-center"">0.842</td>
+                    <td class="align-middle text-center">0.793</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro</td>
+                    <td class="align-middle text-center">0.781</td>
+                    <td class="align-middle text-center"">0.869</td>
+                    <td class="align-middle text-center">0.823</td>
+                    <td class="align-middle text-center">0.807</td>
+                    <td class="align-middle text-center">0.951</td>
+                    <td class="align-middle text-center">0.873</td>
+                    <td class="align-middle text-center">0.759</td>
+                    <td class="align-middle text-center">0.833</td>
+                    <td class="align-middle text-center">0.794</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Nov 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-V3</td>
+                    <td class="align-middle text-center">0.783</td>
+                    <td class="align-middle text-center">0.839</td>
+                    <td class="align-middle text-center">0.810</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.949</td>
+                    <td class="align-middle text-center">0.900</td>
+                    <td class="align-middle text-center">0.749</td>
+                    <td class="align-middle text-center">0.806</td>
+                    <td class="align-middle text-center">0.777</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus w/ R</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.829</td>
+                    <td class="align-middle text-center">0.789</td>
+                    <td class="align-middle text-center">0.895</td>
+                    <td class="align-middle text-center"">0.992</td>
+                    <td class="align-middle text-center"">0.941</td>
+                    <td class="align-middle text-center">0.746</td>
+                    <td class="align-middle text-center">0.821</td>
+                    <td class="align-middle text-center">0.782</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-32B</td>
+                    <td class="align-middle text-center">0.756</td>
+                    <td class="align-middle text-center">0.830</td>
+                    <td class="align-middle text-center">0.791</td>
+                    <td class="align-middle text-center">0.854</td>
+                    <td class="align-middle text-center">0.947</td>
+                    <td class="align-middle text-center">0.898</td>
+                    <td class="align-middle text-center">0.726</td>
+                    <td class="align-middle text-center">0.792</td>
+                    <td class="align-middle text-center">0.757</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.807</td>
+                    <td class="align-middle text-center">0.779</td>
+                    <td class="align-middle text-center"">0.899</td>
+                    <td class="align-middle text-center">0.972</td>
+                    <td class="align-middle text-center">0.934</td>
+                    <td class="align-middle text-center">0.735</td>
+                    <td class="align-middle text-center">0.789</td>
+                    <td class="align-middle text-center">0.761</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 13, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center"">0.874</td>
+                    <td class="align-middle text-center">0.784</td>
+                    <td class="align-middle text-center">0.760</td>
+                    <td class="align-middle text-center">0.945</td>
+                    <td class="align-middle text-center">0.842</td>
+                    <td class="align-middle text-center">0.683</td>
+                    <td class="align-middle text-center"">0.835</td>
+                    <td class="align-middle text-center">0.751</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Air</td>
+                    <td class="align-middle text-center">0.740</td>
+                    <td class="align-middle text-center">0.825</td>
+                    <td class="align-middle text-center">0.780</td>
+                    <td class="align-middle text-center">0.793</td>
+                    <td class="align-middle text-center">0.908</td>
+                    <td class="align-middle text-center">0.847</td>
+                    <td class="align-middle text-center">0.684</td>
+                    <td class="align-middle text-center">0.762</td>
+                    <td class="align-middle text-center">0.721</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Flash</td>
+                    <td class="align-middle text-center">0.756</td>
+                    <td class="align-middle text-center">0.767</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.838</td>
+                    <td class="align-middle text-center">0.918</td>
+                    <td class="align-middle text-center">0.876</td>
+                    <td class="align-middle text-center">0.751</td>
+                    <td class="align-middle text-center">0.762</td>
+                    <td class="align-middle text-center">0.756</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-8B</td>
+                    <td class="align-middle text-center">0.663</td>
+                    <td class="align-middle text-center">0.837</td>
+                    <td class="align-middle text-center">0.740</td>
+                    <td class="align-middle text-center">0.790</td>
+                    <td class="align-middle text-center"">0.980</td>
+                    <td class="align-middle text-center">0.875</td>
+                    <td class="align-middle text-center">0.657</td>
+                    <td class="align-middle text-center">0.828</td>
+                    <td class="align-middle text-center">0.732</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Plus</td>
+                    <td class="align-middle text-center">0.663</td>
+                    <td class="align-middle text-center">0.835</td>
+                    <td class="align-middle text-center">0.739</td>
+                    <td class="align-middle text-center">0.740</td>
+                    <td class="align-middle text-center">0.955</td>
+                    <td class="align-middle text-center">0.834</td>
+                    <td class="align-middle text-center">0.631</td>
+                    <td class="align-middle text-center">0.797</td>
+                    <td class="align-middle text-center">0.705</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-8B-Instruct</td>
+                    <td class="align-middle text-center">0.695</td>
+                    <td class="align-middle text-center">0.730</td>
+                    <td class="align-middle text-center">0.712</td>
+                    <td class="align-middle text-center">0.753</td>
+                    <td class="align-middle text-center">0.794</td>
+                    <td class="align-middle text-center">0.773</td>
+                    <td class="align-middle text-center">0.611</td>
+                    <td class="align-middle text-center">0.643</td>
+                    <td class="align-middle text-center">0.627</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-9B</td>
+                    <td class="align-middle text-center">0.528</td>
+                    <td class="align-middle text-center">0.795</td>
+                    <td class="align-middle text-center">0.635</td>
+                    <td class="align-middle text-center">0.559</td>
+                    <td class="align-middle text-center">0.859</td>
+                    <td class="align-middle text-center">0.677</td>
+                    <td class="align-middle text-center">0.462</td>
+                    <td class="align-middle text-center">0.690</td>
+                    <td class="align-middle text-center">0.553</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ===================== RAG-based QA ======================= -->
+          <div class="card card-outline-secondary">
+            <div class="card-header">Leaderboard - RAG-based QA</div>
+
+            <div class="table-wrapper">
+              <div class="btn-group mb-3 w-100" role="group">
+                <button type="button" class="btn btn-f active" id="rag-multi-btn">Multi-answer
+                  Questions</button>
+                <button type="button" class="btn btn-f" id="rag-single-btn"
+                 >Single-answer Questions</button>
+              </div>
+
+              <!-- Multi-answer Questions Table -->
+              <table class="table leaderboard" id="rag-multi-table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" rowspan="1"></th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">Model</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^A</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">ER</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^E</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^EA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro w/ R</td>
+                    <td class="align-middle text-center">0.738</td>
+                    <td class="align-middle text-center">0.798</td>
+                    <td class="align-middle text-center">0.767</td>
+                    <td class="align-middle text-center">0.722</td>
+                    <td class="align-middle text-center">0.802</td>
+                    <td class="align-middle text-center">0.760</td>
+                    <td class="align-middle text-center">0.662</td>
+                    <td class="align-middle text-center">0.693</td>
+                    <td class="align-middle text-center">0.677</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro</td>
+                    <td class="align-middle text-center">0.724</td>
+                    <td class="align-middle text-center">0.753</td>
+                    <td class="align-middle text-center">0.738</td>
+                    <td class="align-middle text-center">0.722</td>
+                    <td class="align-middle text-center">0.790</td>
+                    <td class="align-middle text-center">0.754</td>
+                    <td class="align-middle text-center">0.649</td>
+                    <td class="align-middle text-center">0.657</td>
+                    <td class="align-middle text-center">0.653</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Flash</td>
+                    <td class="align-middle text-center">0.682</td>
+                    <td class="align-middle text-center">0.777</td>
+                    <td class="align-middle text-center">0.726</td>
+                    <td class="align-middle text-center">0.654</td>
+                    <td class="align-middle text-center">0.743</td>
+                    <td class="align-middle text-center">0.696</td>
+                    <td class="align-middle text-center">0.598</td>
+                    <td class="align-middle text-center">0.632</td>
+                    <td class="align-middle text-center">0.614</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-V3</td>
+                    <td class="align-middle text-center">0.669</td>
+                    <td class="align-middle text-center">0.761</td>
+                    <td class="align-middle text-center">0.712</td>
+                    <td class="align-middle text-center">0.674</td>
+                    <td class="align-middle text-center">0.784</td>
+                    <td class="align-middle text-center">0.725</td>
+                    <td class="align-middle text-center">0.580</td>
+                    <td class="align-middle text-center">0.654</td>
+                    <td class="align-middle text-center">0.615</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jan 22, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-R1 w/ R</td>
+                    <td class="align-middle text-center">0.638</td>
+                    <td class="align-middle text-center">0.763</td>
+                    <td class="align-middle text-center">0.695</td>
+                    <td class="align-middle text-center">0.660</td>
+                    <td class="align-middle text-center">0.803</td>
+                    <td class="align-middle text-center">0.725</td>
+                    <td class="align-middle text-center">0.578</td>
+                    <td class="align-middle text-center">0.682</td>
+                    <td class="align-middle text-center">0.626</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-70B-Instruct</td>
+                    <td class="align-middle text-center">0.665</td>
+                    <td class="align-middle text-center">0.744</td>
+                    <td class="align-middle text-center">0.702</td>
+                    <td class="align-middle text-center">0.649</td>
+                    <td class="align-middle text-center">0.741</td>
+                    <td class="align-middle text-center">0.692</td>
+                    <td class="align-middle text-center">0.572</td>
+                    <td class="align-middle text-center">0.633</td>
+                    <td class="align-middle text-center">0.601</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 13, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o</td>
+                    <td class="align-middle text-center">0.607</td>
+                    <td class="align-middle text-center">0.799</td>
+                    <td class="align-middle text-center">0.690</td>
+                    <td class="align-middle text-center">0.593</td>
+                    <td class="align-middle text-center">0.755</td>
+                    <td class="align-middle text-center">0.664</td>
+                    <td class="align-middle text-center">0.529</td>
+                    <td class="align-middle text-center">0.666</td>
+                    <td class="align-middle text-center">0.590</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">July 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o-mini</td>
+                    <td class="align-middle text-center">0.604</td>
+                    <td class="align-middle text-center">0.772</td>
+                    <td class="align-middle text-center">0.678</td>
+                    <td class="align-middle text-center">0.597</td>
+                    <td class="align-middle text-center">0.781</td>
+                    <td class="align-middle text-center">0.677</td>
+                    <td class="align-middle text-center">0.525</td>
+                    <td class="align-middle text-center">0.674</td>
+                    <td class="align-middle text-center">0.590</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus</td>
+                    <td class="align-middle text-center">0.624</td>
+                    <td class="align-middle text-center">0.778</td>
+                    <td class="align-middle text-center">0.693</td>
+                    <td class="align-middle text-center">0.656</td>
+                    <td class="align-middle text-center">0.808</td>
+                    <td class="align-middle text-center">0.724</td>
+                    <td class="align-middle text-center">0.562</td>
+                    <td class="align-middle text-center">0.680</td>
+                    <td class="align-middle text-center">0.615</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus w/ R</td>
+                    <td class="align-middle text-center">0.584</td>
+                    <td class="align-middle text-center">0.801</td>
+                    <td class="align-middle text-center">0.676</td>
+                    <td class="align-middle text-center">0.618</td>
+                    <td class="align-middle text-center">0.846</td>
+                    <td class="align-middle text-center">0.714</td>
+                    <td class="align-middle text-center">0.537</td>
+                    <td class="align-middle text-center">0.724</td>
+                    <td class="align-middle text-center">0.617</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-32B</td>
+                    <td class="align-middle text-center">0.570</td>
+                    <td class="align-middle text-center">0.801</td>
+                    <td class="align-middle text-center">0.666</td>
+                    <td class="align-middle text-center">0.597</td>
+                    <td class="align-middle text-center">0.827</td>
+                    <td class="align-middle text-center">0.693</td>
+                    <td class="align-middle text-center">0.510</td>
+                    <td class="align-middle text-center">0.711</td>
+                    <td class="align-middle text-center">0.594</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-8B</td>
+                    <td class="align-middle text-center">0.581</td>
+                    <td class="align-middle text-center">0.785</td>
+                    <td class="align-middle text-center">0.668</td>
+                    <td class="align-middle text-center">0.605</td>
+                    <td class="align-middle text-center">0.803</td>
+                    <td class="align-middle text-center">0.690</td>
+                    <td class="align-middle text-center">0.515</td>
+                    <td class="align-middle text-center">0.689</td>
+                    <td class="align-middle text-center">0.589</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Air</td>
+                    <td class="align-middle text-center">0.599</td>
+                    <td class="align-middle text-center">0.759</td>
+                    <td class="align-middle text-center">0.670</td>
+                    <td class="align-middle text-center">0.607</td>
+                    <td class="align-middle text-center">0.770</td>
+                    <td class="align-middle text-center">0.679</td>
+                    <td class="align-middle text-center">0.517</td>
+                    <td class="align-middle text-center">0.637</td>
+                    <td class="align-middle text-center">0.571</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Plus</td>
+                    <td class="align-middle text-center">0.552</td>
+                    <td class="align-middle text-center">0.798</td>
+                    <td class="align-middle text-center">0.653</td>
+                    <td class="align-middle text-center">0.554</td>
+                    <td class="align-middle text-center">0.805</td>
+                    <td class="align-middle text-center">0.656</td>
+                    <td class="align-middle text-center">0.481</td>
+                    <td class="align-middle text-center">0.685</td>
+                    <td class="align-middle text-center">0.565</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-9B</td>
+                    <td class="align-middle text-center">0.488</td>
+                    <td class="align-middle text-center">0.752</td>
+                    <td class="align-middle text-center">0.592</td>
+                    <td class="align-middle text-center">0.480</td>
+                    <td class="align-middle text-center">0.755</td>
+                    <td class="align-middle text-center">0.587</td>
+                    <td class="align-middle text-center">0.403</td>
+                    <td class="align-middle text-center">0.614</td>
+                    <td class="align-middle text-center">0.487</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-8B-Instruct</td>
+                    <td class="align-middle text-center">0.567</td>
+                    <td class="align-middle text-center">0.649</td>
+                    <td class="align-middle text-center">0.605</td>
+                    <td class="align-middle text-center">0.549</td>
+                    <td class="align-middle text-center">0.633</td>
+                    <td class="align-middle text-center">0.588</td>
+                    <td class="align-middle text-center">0.454</td>
+                    <td class="align-middle text-center">0.522</td>
+                    <td class="align-middle text-center">0.486</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Single-entity Questions Table -->
+              <table class="table leaderboard" id="rag-single-table" style="display: none;">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col" rowspan="1"></th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">Model</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">AP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^A</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">ER</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^E</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAR</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">EAP</th>
+                    <th scope="col" rowspan="1" class="align-middle text-center">F1^EA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro w/ R</td>
+                    <td class="align-middle text-center">0.855</td>
+                    <td class="align-middle text-center">0.624</td>
+                    <td class="align-middle text-center">0.721</td>
+                    <td class="align-middle text-center">0.786</td>
+                    <td class="align-middle text-center">0.698</td>
+                    <td class="align-middle text-center">0.739</td>
+                    <td class="align-middle text-center">0.695</td>
+                    <td class="align-middle text-center">0.484</td>
+                    <td class="align-middle text-center">0.570</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Pro</td>
+                    <td class="align-middle text-center">0.837</td>
+                    <td class="align-middle text-center">0.599</td>
+                    <td class="align-middle text-center">0.698</td>
+                    <td class="align-middle text-center">0.704</td>
+                    <td class="align-middle text-center">0.610</td>
+                    <td class="align-middle text-center">0.654</td>
+                    <td class="align-middle text-center">0.616</td>
+                    <td class="align-middle text-center">0.417</td>
+                    <td class="align-middle text-center">0.497</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 25, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Gemini-2.5-Flash</td>
+                    <td class="align-middle text-center">0.820</td>
+                    <td class="align-middle text-center">0.541</td>
+                    <td class="align-middle text-center">0.652</td>
+                    <td class="align-middle text-center">0.686</td>
+                    <td class="align-middle text-center">0.548</td>
+                    <td class="align-middle text-center">0.609</td>
+                    <td class="align-middle text-center">0.600</td>
+                    <td class="align-middle text-center">0.354</td>
+                    <td class="align-middle text-center">0.445</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Mar 13, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o</td>
+                    <td class="align-middle text-center">0.822</td>
+                    <td class="align-middle text-center">0.585</td>
+                    <td class="align-middle text-center">0.684</td>
+                    <td class="align-middle text-center">0.611</td>
+                    <td class="align-middle text-center">0.565</td>
+                    <td class="align-middle text-center">0.587</td>
+                    <td class="align-middle text-center">0.529</td>
+                    <td class="align-middle text-center">0.370</td>
+                    <td class="align-middle text-center">0.436</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus</td>
+                    <td class="align-middle text-center">0.781</td>
+                    <td class="align-middle text-center">0.591</td>
+                    <td class="align-middle text-center">0.673</td>
+                    <td class="align-middle text-center">0.658</td>
+                    <td class="align-middle text-center">0.630</td>
+                    <td class="align-middle text-center">0.644</td>
+                    <td class="align-middle text-center">0.571</td>
+                    <td class="align-middle text-center">0.437</td>
+                    <td class="align-middle text-center">0.495</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 08, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen-Plus w/ R</td>
+                    <td class="align-middle text-center">0.801</td>
+                    <td class="align-middle text-center">0.574</td>
+                    <td class="align-middle text-center">0.669</td>
+                    <td class="align-middle text-center">0.737</td>
+                    <td class="align-middle text-center">0.673</td>
+                    <td class="align-middle text-center">0.704</td>
+                    <td class="align-middle text-center">0.629</td>
+                    <td class="align-middle text-center">0.448</td>
+                    <td class="align-middle text-center">0.523</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-70B-Instruct</td>
+                    <td class="align-middle text-center">0.707</td>
+                    <td class="align-middle text-center">0.582</td>
+                    <td class="align-middle text-center">0.638</td>
+                    <td class="align-middle text-center">0.550</td>
+                    <td class="align-middle text-center">0.493</td>
+                    <td class="align-middle text-center">0.520</td>
+                    <td class="align-middle text-center">0.436</td>
+                    <td class="align-middle text-center">0.356</td>
+                    <td class="align-middle text-center">0.392</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Plus</td>
+                    <td class="align-middle text-center">0.763</td>
+                    <td class="align-middle text-center">0.583</td>
+                    <td class="align-middle text-center">0.661</td>
+                    <td class="align-middle text-center">0.583</td>
+                    <td class="align-middle text-center">0.556</td>
+                    <td class="align-middle text-center">0.569</td>
+                    <td class="align-middle text-center">0.488</td>
+                    <td class="align-middle text-center">0.377</td>
+                    <td class="align-middle text-center">0.426</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Aug 07, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-32B</td>
+                    <td class="align-middle text-center">0.774</td>
+                    <td class="align-middle text-center">0.575</td>
+                    <td class="align-middle text-center">0.660</td>
+                    <td class="align-middle text-center">0.627</td>
+                    <td class="align-middle text-center">0.599</td>
+                    <td class="align-middle text-center">0.613</td>
+                    <td class="align-middle text-center">0.538</td>
+                    <td class="align-middle text-center">0.405</td>
+                    <td class="align-middle text-center">0.462</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jan 22, 2025</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-R1 w/ R</td>
+                    <td class="align-middle text-center">0.739</td>
+                    <td class="align-middle text-center">0.581</td>
+                    <td class="align-middle text-center">0.651</td>
+                    <td class="align-middle text-center">0.636</td>
+                    <td class="align-middle text-center">0.595</td>
+                    <td class="align-middle text-center">0.615</td>
+                    <td class="align-middle text-center">0.530</td>
+                    <td class="align-middle text-center">0.417</td>
+                    <td class="align-middle text-center">0.467</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Nov 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">DeepSeek-V3</td>
+                    <td class="align-middle text-center">0.749</td>
+                    <td class="align-middle text-center">0.519</td>
+                    <td class="align-middle text-center">0.613</td>
+                    <td class="align-middle text-center">0.625</td>
+                    <td class="align-middle text-center">0.544</td>
+                    <td class="align-middle text-center">0.582</td>
+                    <td class="align-middle text-center">0.519</td>
+                    <td class="align-middle text-center">0.362</td>
+                    <td class="align-middle text-center">0.427</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Feb 3, 2023</span>
+                    </td>
+                    <td class="align-middle text-center">Qwen3-8B</td>
+                    <td class="align-middle text-center">0.775</td>
+                    <td class="align-middle text-center">0.552</td>
+                    <td class="align-middle text-center">0.645</td>
+                    <td class="align-middle text-center">0.608</td>
+                    <td class="align-middle text-center">0.559</td>
+                    <td class="align-middle text-center">0.582</td>
+                    <td class="align-middle text-center">0.516</td>
+                    <td class="align-middle text-center">0.375</td>
+                    <td class="align-middle text-center">0.434</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-9B</td>
+                    <td class="align-middle text-center">0.760</td>
+                    <td class="align-middle text-center">0.527</td>
+                    <td class="align-middle text-center">0.622</td>
+                    <td class="align-middle text-center">0.502</td>
+                    <td class="align-middle text-center">0.438</td>
+                    <td class="align-middle text-center">0.468</td>
+                    <td class="align-middle text-center">0.410</td>
+                    <td class="align-middle text-center">0.278</td>
+                    <td class="align-middle text-center">0.331</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Jun 6, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GLM-4-Air</td>
+                    <td class="align-middle text-center">0.751</td>
+                    <td class="align-middle text-center">0.534</td>
+                    <td class="align-middle text-center">0.624</td>
+                    <td class="align-middle text-center">0.518</td>
+                    <td class="align-middle text-center">0.479</td>
+                    <td class="align-middle text-center">0.498</td>
+                    <td class="align-middle text-center">0.443</td>
+                    <td class="align-middle text-center">0.310</td>
+                    <td class="align-middle text-center">0.365</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">July 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">GPT-4o-mini</td>
+                    <td class="align-middle text-center">0.719</td>
+                    <td class="align-middle text-center">0.504</td>
+                    <td class="align-middle text-center">0.593</td>
+                    <td class="align-middle text-center">0.517</td>
+                    <td class="align-middle text-center">0.475</td>
+                    <td class="align-middle text-center">0.495</td>
+                    <td class="align-middle text-center">0.405</td>
+                    <td class="align-middle text-center">0.288</td>
+                    <td class="align-middle text-center">0.337</td>
+                  </tr>
+                  <tr>
+                    <td scope="row" class="align-middle text-center counter-cell">
+                      <span class="badge badge-secondary">Apr 18, 2024</span>
+                    </td>
+                    <td class="align-middle text-center">LLaMA-3-8B-Instruct</td>
+                    <td class="align-middle text-center">0.572</td>
+                    <td class="align-middle text-center">0.308</td>
+                    <td class="align-middle text-center">0.400</td>
+                    <td class="align-middle text-center">0.351</td>
+                    <td class="align-middle text-center">0.193</td>
+                    <td class="align-middle text-center">0.249</td>
+                    <td class="align-middle text-center">0.230</td>
+                    <td class="align-middle text-center">0.107</td>
+                    <td class="align-middle text-center">0.146</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <hr />
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./script/jquery.min.js"></script>
+  <script src="./script/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="./script/clean-blog.min.js"></script>
+  <!-- Custom script for leaderboard type toggle -->
+  <script src="./script/leaderboard.js"></script>
+
+</body>
+
+</html>
