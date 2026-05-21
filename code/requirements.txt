@@ -1,0 +1,6 @@
+openai
+colorlog
+nltk
+scipy
+numpy
+pyyaml
